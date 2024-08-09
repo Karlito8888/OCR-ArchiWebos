@@ -127,35 +127,65 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+/* --------------------------------------- */
 /** end reset css**/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 body {
-  max-width: 1140px;
+  max-width: 1440px;
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
+  background-color: #fffef8;
 }
 header {
+  max-width: 1140px;
+  height: 42px;
   display: flex;
   justify-content: space-between;
-  margin: 50px 0;
+  margin: 50px auto;
 }
+
+header nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+main {
+  width: 950px;
+  margin: 0 auto;
+}
+
 section {
-  margin: 50px 0;
+  width: 100%;
 }
 
 h1 {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   font-family: "Syne";
   font-size: 22px;
   font-weight: 800;
+  line-height: 26px;
   color: #b1663c;
 }
 
 h1 > span {
   font-family: "Work Sans";
   font-size: 10px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.5px;
+  line-height: 12px;
+  text-transform: uppercase;
 }
 
 h2 {
@@ -174,51 +204,43 @@ h2 {
   gap: 10px;
 }
 
-/* Style des boutons */
-.categories button {
-  background-color: white;
-  color: #1d6154;
-  border: 1px solid #1d6154;
-  border-radius: 60px;
-  padding: 10px 20px;
-  font-family: "Syne";
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s; /* Effets de transition */
-}
-
-.categories button.active,
-.categories button:hover {
-  background-color: #1d6154;
-  color: white;
-}
-/* Fin du css pour les filtres */
-
+/* NAVIGATION */
 nav ul {
   display: flex;
   align-items: center;
   list-style-type: none;
+  gap: 44px;
 }
-nav li {
-  padding: 0 10px;
-  font-size: 1.2em;
+nav ul li {
+  font-size: 16px;
 }
 
-li:hover {
-  color: #b1663c;
+nav ul li a {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
 }
+
+nav ul li a:hover {
+  font-weight: 800;
+}
+
+/* INTRODUCTION */
 #introduction {
+  height: 355px;
   display: flex;
   align-items: center;
+  gap: 72px;
+  margin-block: 139px;
 }
 #introduction figure {
-  flex: 1;
+  width: 474px;
+  height: 100%;
 }
 #introduction img {
   display: block;
   margin: auto;
-  width: 80%;
+  width: 100%;
 }
 
 #introduction article {
@@ -230,66 +252,200 @@ li:hover {
 
 #introduction p {
   margin-bottom: 0.5em;
+  color: #3d3d3d;
 }
+
+/* PORTFOLIO */
 #portfolio h2 {
   text-align: center;
-  margin-bottom: 1em;
 }
+
+/* filtres */
+.categories {
+  width: 585px;
+  height: 38px;
+  display: flex;
+  gap: 10px ;
+  margin-inline: auto;
+}
+
+.categories button {
+  flex: 1 1 auto;
+  min-width: 100px;
+  background-color: #fffef8;
+  color: #1d6154;
+  border: 1px solid #1d6154;
+  border-radius: 60px;
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.categories button.active,
+.categories button:hover {
+  background-color: #1d6154;
+  color: white;
+}
+/* Fin du css pour les filtres */
+
 .gallery {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 20px;
-  grid-row-gap: 20px;
+  grid-column-gap: 18px;
+  grid-row-gap: 16px;
 }
 
 .gallery img {
   width: 100%;
+  margin-bottom: 7px;
 }
+
+.gallery figcaption {
+  font-size: 13px;
+  color: #3d3d3d;
+}
+
+/* LOGIN */
+
+.login-form {
+  width: 380px;
+  margin-inline: auto;
+  margin-top: 150px;
+  margin-bottom: 350px;
+  text-align: center;
+}
+
+.login-form h2 {
+  margin-bottom: 37px;
+}
+
+.login-form form {
+  display: grid;
+  gap: 30px;
+}
+
+.login-form .form-group {
+  width: 380px;
+}
+
+.login-form .form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 7px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.login-form .form-group input {
+  width: 100%;                                                                             
+  max-width: 360px;
+  padding: 10px;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+  font-size: 16px;
+}
+
+.login-form button {
+  width: 180px;
+  height: 36px;
+  background-color: #3e7064;
+  color: #fff;
+  text-align: center;
+  border: none;
+  border-radius: 60px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-inline: auto;
+  margin-top: 7px;
+  transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+  background-color: #2f544b;
+}
+
+.login-form .forgot-password {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #3d3d3d;
+  cursor: pointer;
+}
+
+.login-form .forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* CONTACT */
 #contact {
-  width: 50%;
-  margin: auto;
+  width: 380px;
+  margin: 57px auto 45px;
+  color: #3d3d3d;
 }
 #contact > * {
   text-align: center;
 }
 #contact h2 {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+}
+#contact p {
+  font-size: 16px;
 }
 #contact form {
   text-align: left;
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
 }
 
+#contact label {
+  margin-top: 40px;
+  margin-bottom: 11px;
+  font-weight: 500;
+}
+
 #contact input {
-  height: 50px;
+  height: 51px;
   font-size: 1.2em;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
-  margin: 2em 0 1em 0;
-}
 #contact textarea {
+  height: 174px;
   border: none;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"] {
+#contact input[type="submit"] {
+  width: 180px;
+  height: 36px;
+  font-size: 14px;
   font-family: "Syne";
   font-weight: 700;
   color: white;
   background-color: #1d6154;
-  margin: 2em auto;
-  width: 180px;
+  margin-top: 40px;
+  margin-inline: auto;
   text-align: center;
   border-radius: 60px;
 }
 
-footer nav ul {
+/* FOOTER */
+footer {
+  height: 60px;
+  width: 1440px;
   display: flex;
   justify-content: flex-end;
-  margin: 2em;
+  align-items: center;
+  background-color: #fff;
+}
+
+footer nav li {
+  font-size: 14px;
+  font-weight: 300;
+  margin-right: 107px;
 }
