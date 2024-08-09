@@ -177,12 +177,14 @@ h2 {
 /* Style des boutons */
 .categories button {
   background-color: white;
-  color: #1d6154; /* Couleur du texte */
+  color: #1d6154;
   border: 1px solid #1d6154;
   border-radius: 60px;
-  padding: 10px 20px; /* Espacement interne */
-  font-size: 16px; /* Taille de la police */
-  cursor: pointer; /* Curseur en forme de main */
+  padding: 10px 20px;
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
   transition: background-color 0.3s, transform 0.3s; /* Effets de transition */
 }
 

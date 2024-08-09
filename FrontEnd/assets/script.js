@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
      // Fonction pour créer les boutons de catégories
     function createCategoryButtons(categories) {
-        categoriesContainer.innerHTML = ''; // Clear existing buttons
+        // categoriesContainer.innerHTML = '';
         const allButton = document.createElement('button');
         allButton.textContent = 'Tous';
         allButton.classList.add('active'); // Activer le bouton "Tous" par défaut
@@ -39,10 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 filterWorksByCategory(category.id);
             });
             categoriesContainer.appendChild(button);
-        }); // Ajouter des gestionnaires d'événements pour le survol et le focus
-        const buttons = categoriesContainer.querySelectorAll('button');
-        buttons.forEach(button => {
-            button.addEventListener('mouseover', () => setActiveButton(button));
         });
     }
 
