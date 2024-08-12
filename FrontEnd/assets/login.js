@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("loginForm");
   const loginButton = document.querySelector('nav ul li a[href="login.html"]');
+  const errorMessage = document.getElementById("error-message");
 
   // Vérifie si l'utilisateur est déjà connecté
   if (localStorage.getItem("loggedIn") === "true") {
@@ -43,8 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Rediriger vers index.html
       window.location.href = "index.html";
     } catch (error) {
-      console.error("Erreur:", error);
       // Affiche un message d'erreur à l'utilisateur
+      //   console.error("Erreur:", error);
+      errorMessage.style.display = "block";
     }
   });
 

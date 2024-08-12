@@ -58,6 +58,32 @@
 			</div>
 			<div class="categories"></div>
 			<div class="gallery"></div>
+
+			<!-- Modale pour gérer les projets -->
+			<div id="modal" class="modal">
+				<div class="modal-content">
+					<span class="close-button">&times;</span>
+					<div id="gallery-view" class="modal-view">
+						<h2>Galerie Photo</h2>
+						<div id="imageGallery"></div>
+						<button id="addPhotoButton">Ajouter une Photo</button>
+					</div>
+					<div id="add-photo-view" class="modal-view">
+						<h2>Ajout photo</h2>
+						<form id="projectForm">
+							<label for="projectImage">Image</label>
+							<input type="file" id="projectImage" name="image" accept="image/*" required>
+							<label for="projectTitle">Titre</label>
+							<input type="text" id="projectTitle" name="title" required>
+							<label for="projectCategory">Catégorie</label>
+							<select id="projectCategory" name="category" required>
+							</select>
+							<button type="submit">Ajouter</button>
+						</form>
+						<button id="backToGalleryButton">Retour à la Galerie</button>
+					</div>
+				</div>
+			</div>
 		</section>
 		<section id="contact">
 			<h2>Contact</h2>
@@ -82,6 +108,7 @@
 		</nav>
 	</footer>
 	<script src="./assets/index.js"></script>
+	<script src="./assets/modal.js"></script>
 </body>
 
 </html>

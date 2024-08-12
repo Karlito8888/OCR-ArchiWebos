@@ -367,6 +367,7 @@ h2 {
   margin-top: 10px;
   margin-bottom: 350px;
   text-align: center;
+  position: relative;
 }
 
 .login-form h2 {
@@ -427,10 +428,124 @@ h2 {
   color: #3d3d3d;
   cursor: pointer;
 }
-
-.login-form .forgot-password:hover {
-  text-decoration: underline;
+.login-form #error-message {
+  position: absolute;
+  width: 100%;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red; 
+  display: none;
 }
+
+/* MODALE */
+.modal {
+  display: none; /* Caché par défaut */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.3);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 26px 105px;
+  border-radius: 10px;
+  width: 630px;
+  position: relative;
+}
+.close-button {
+  position: absolute;
+  top: 26px;
+  right: 30px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.modal-view {
+  display: none; /* Caché par défaut */
+}
+.modal-view.active {
+  display: grid;
+  max-width: 100%;
+}
+.modal-view h2 {
+  font-size: 26px;
+  text-align: center;
+  color: black;
+  font-weight: 400;
+  font-family: "Work Sans";
+  margin-top: 60px;
+  margin-inline: auto;
+}
+#imageGallery {
+  display: grid;
+  max-width: 100%;
+  height: auto;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px 8px;
+  margin: 46px auto 67px;
+  position: relative;
+}
+#imageGallery figure {
+width: 100%;
+position: relative;
+}
+#imageGallery figure .delete-icon {
+  position: absolute;
+  top: 7px;
+  right: 5px;
+  background-color: black;
+  padding: 3px; 
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+#imageGallery figure .delete-icon img {
+  height: 11px;
+  display: block;
+}
+#imageGallery figure img {
+  width: 100%;
+  object-fit: cover;
+}
+#imageGallery::after {
+  position: absolute;
+  content: "";
+  height: 1px;
+  bottom: -67px;
+  width: 100%;
+  background-color: #b3b3b3;
+}
+.modal-view button {
+  width: 237px;
+  height: 36px;
+  border: none;
+  outline: none;
+  border-radius: 60px;
+  font-family: "Syne";
+  color: #fff;
+  font-weight: 700;
+  margin: 38px auto 45px;
+}
+#addPhotoButton {
+  background-color: #1d6154;;
+}
+
+
 
 /* CONTACT */
 #contact {
