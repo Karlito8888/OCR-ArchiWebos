@@ -16,34 +16,40 @@
 
 <body>
     <header>
-        <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">projets</a></li>
-                <li><a href="#">contact</a></li>
-                <li><a href="login.html" class="active">login</a></li>
-                <li><a href="https://www.instagram.com" target="_blank"><img src="./assets/icons/instagram.png"
-                            alt="Instagram"></a></li>
-            </ul>
-        </nav>
+        <div class="edit-mode">
+            <img src="./assets/icons/pen-to-square-regular.svg" alt="logo du mode édition">
+            <p>Mode édition</p>
+        </div>
+        <div class="header-container">
+            <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">projets</a></li>
+                    <li><a href="#contact">contact</a></li>
+                    <li><a href="login.html" class="active">login</a></li>
+                    <li><a href="https://www.instagram.com" target="_blank"><img src="./assets/icons/instagram.png"
+                                alt="Logo Instagram"></a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <main>
-        <section class="login-form">
-            <h2>Log In</h2>
-            <form action="path/to/login" method="POST">
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit">Se connecter</button>
-                <a href="#" class="forgot-password">Mot de passe oublié</a>
-            </form>
-        </section>
-    </main>
+<main>
+    <section class="login-form">
+        <h2>Log In</h2>
+        <form id="loginForm" action="#" method="POST">
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Se connecter</button>
+            <a href="#" class="forgot-password">Mot de passe oublié</a>
+        </form>
+    </section>
+</main>
     <footer>
         <nav>
             <ul>
@@ -51,6 +57,7 @@
             </ul>
         </nav>
     </footer>
+    <script src="./assets/login.js"></script>
 </body>
 
 </html>

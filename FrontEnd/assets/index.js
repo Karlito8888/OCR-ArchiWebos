@@ -4,6 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let works = [];
     let categories = [];
 
+     // Vérifie si l'utilisateur est connecté
+    const loggedIn = localStorage.getItem('loggedIn') === 'true';
+    const token = localStorage.getItem('token');
+
+    const loginButton = document.querySelector('nav ul li a[href="login.html"]');
+
+    if (loggedIn) {
+        loginButton.textContent = 'logout';
+        loginButton.href = '#';
+        document.querySelector('header .edit-mode').classList.add('active');
+    }
+
     // Fonction pour créer et ajouter les figures dans la galerie
     function createGalleryItem(item) {
         const figure = document.createElement('figure');
@@ -20,10 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
      // Fonction pour créer les boutons de catégories
     function createCategoryButtons(categories) {
-        // categoriesContainer.innerHTML = '';
         const allButton = document.createElement('button');
         allButton.textContent = 'Tous';
-        allButton.classList.add('active'); // Activer le bouton "Tous" par défaut
+        allButton.classList.add('active');
         allButton.addEventListener('click', () => {
             setActiveButton(allButton);
             displayWorks(works);
@@ -80,4 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Appeler la fonction pour récupérer les données
     fetchData();
+
+     loginButton.addEventListener('click', (event) => {
+        if (loggedIn) {
+            event.preventDefault();
+            localStorage.removeItem('loggedIn');
+            localStorage.removeItem('token');
+            loginButton.textContent = 'login';
+            loginButton.href = 'login.html';
+            document.querySelector('header .edit-mode').classList.remove('active');
+        }
+    });
 });
