@@ -62,7 +62,13 @@
 			<!-- Modale pour gérer les projets -->
 			<div id="modal" class="modal">
 				<div class="modal-content">
-					<span class="close-button">&times;</span>
+				    <div class="nav-buttons-container">
+						<button type="button" id="backToGalleryButton">
+							<img src="./assets/icons/arrow-left-solid.svg" alt="fleche gauche">
+						</button>
+						<button type="button" id="closeModalButton">&times;</button>
+						<!-- <span class="close-button">&times;</span> -->
+					</div>
 					<div id="gallery-view" class="modal-view">
 						<h2>Galerie Photo</h2>
 						<div id="imageGallery"></div>
@@ -71,16 +77,24 @@
 					<div id="add-photo-view" class="modal-view">
 						<h2>Ajout photo</h2>
 						<form id="projectForm">
-							<label for="projectImage">Image</label>
-							<input type="file" id="projectImage" name="image" accept="image/*" required>
+							<div id="addPhotoWrapper">
+								<label for="projectImage" id="addPhotoBox">
+									<div class="projectImageIcon">
+										<img src="./assets/icons/image-regular.svg" alt="Icone d'ajout">
+									</div>
+									<span>+ Ajouter photo</span>
+									<p>jpg, png : 4mo max</p>
+									<input type="file" id="projectImage" name="projectImage" accept="image/*" required />
+								</label>
+							</div>
 							<label for="projectTitle">Titre</label>
-							<input type="text" id="projectTitle" name="title" required>
+							<input type="text" id="projectTitle" name="projectTitle" required />
 							<label for="projectCategory">Catégorie</label>
-							<select id="projectCategory" name="category" required>
+							<select id="projectCategory" name="projectCategory" required>
 							</select>
-							<button type="submit">Ajouter</button>
+							<button type="submit" id="submitPhotoButton">Valider</button>
+							
 						</form>
-						<button id="backToGalleryButton">Retour à la Galerie</button>
 					</div>
 				</div>
 			</div>

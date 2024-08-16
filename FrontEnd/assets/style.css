@@ -145,7 +145,12 @@ body {
   font-size: 14px;
   background-color: #fffef8;
 }
-
+button,
+select {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
 /* HEADER */
 header {
   width: 100%;
@@ -279,7 +284,7 @@ h2 {
   position: relative;
 }
 #portfolio h2 {
-  width: 200px; 
+  width: 200px;
 }
 
 .modify-edit-mode {
@@ -351,6 +356,7 @@ h2 {
 
 .gallery img {
   width: 100%;
+  height: 407px;
   margin-bottom: 7px;
 }
 
@@ -434,7 +440,7 @@ h2 {
   bottom: 90px;
   left: 50%;
   transform: translateX(-50%);
-  color: red; 
+  color: red;
   display: none;
 }
 
@@ -448,35 +454,46 @@ h2 {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modal-content {
   background-color: #fff;
   margin: 15% auto;
-  padding: 26px 105px;
+  padding: 26px 30px;
   border-radius: 10px;
   width: 630px;
-  position: relative;
 }
-.close-button {
-  position: absolute;
-  top: 26px;
-  right: 30px;
+.nav-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-buttons-container button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+#backToGalleryButton {
+  width: 21px;
+  height: 21px;
+  visibility: hidden;
+}
+#backToGalleryButton img {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+#closeModalButton {
   width: 24px;
   height: 24px;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: black;
-  float: right;
   font-size: 24px;
   font-weight: bold;
-  cursor: pointer;
 }
 .modal-view {
   display: none; /* Caché par défaut */
+  padding-inline: 75px;
 }
 .modal-view.active {
   display: grid;
@@ -488,7 +505,7 @@ h2 {
   color: black;
   font-weight: 400;
   font-family: "Work Sans";
-  margin-top: 60px;
+  margin-top: 10px;
   margin-inline: auto;
 }
 #imageGallery {
@@ -501,15 +518,15 @@ h2 {
   position: relative;
 }
 #imageGallery figure {
-width: 100%;
-position: relative;
+  width: 100%;
+  position: relative;
 }
 #imageGallery figure .delete-icon {
   position: absolute;
   top: 7px;
   right: 5px;
   background-color: black;
-  padding: 3px; 
+  padding: 3px;
   border-radius: 2px;
   cursor: pointer;
 }
@@ -520,6 +537,7 @@ position: relative;
 }
 #imageGallery figure img {
   width: 100%;
+  height: 103px;
   object-fit: cover;
 }
 #imageGallery::after {
@@ -530,7 +548,8 @@ position: relative;
   width: 100%;
   background-color: #b3b3b3;
 }
-.modal-view button {
+#addPhotoButton,
+#submitPhotoButton {
   width: 237px;
   height: 36px;
   border: none;
@@ -542,10 +561,123 @@ position: relative;
   margin: 38px auto 45px;
 }
 #addPhotoButton {
-  background-color: #1d6154;;
+  background-color: #1d6154;
+}
+
+#submitPhotoButton {
+  background-color: #cbd6dc;
+}
+#projectForm {
+  margin-top: 36px;
+  display: grid;
+  position: relative;
+}
+#projectForm::after {
+  position: absolute;
+  content: "";
+   width: 100%;
+  height: 1px;
+  bottom: 123px;
+  background-color: #b3b3b3;
+}
+#addPhotoWrapper {
+  height: 100%;
+  max-height: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#addPhotoBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #eef2f7;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+#addPhotoBox.no-padding {
+  padding: 0;
+}
+#addPhotoBox .delete-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: black;
+  padding: 3px;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 
+.projectImageIcon {
+  width: 68px;
+  margin-bottom: 10px;
+}
+.projectImageIcon img {
+  width: 100%;
+}
+#addPhotoBox span {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 33px;
+  color: #306685;
+  border-radius: 50px;
+  background-color: #CBD6DC;
+  margin-bottom: 7px;
+}
+
+#addPhotoBox p {
+  font-size: 10px;
+  color: #666666;
+}
+
+#projectImage {
+  display: none;
+}
+#projectForm label {
+  margin-bottom: 10px;
+}
+#projectTitle,
+#projectCategory {
+  height: 51px;
+  font-size: 1.2em;
+  border: none;
+  background-color: white;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  padding-left: 16px;
+  font-size: 14px;
+  color: #444;
+  letter-spacing: 1px;
+}
+#projectTitle {
+  margin-bottom: 21px;
+}
+#projectCategory {
+  appearance: none;
+  background: url("./icons/chevron-down-solid.svg") no-repeat 92%;
+  background-size: 12px;
+  margin-bottom: 47px;
+  position: relative;
+}
+#projectCategory option {
+   padding-left: 16px;
+  font-size: 14px;
+  color: #444;
+  letter-spacing: 1px;
+}
+#submitPhotoButton {
+  margin-top: 32px;
+  background-color: #a7a7a7;
+  position: relative;
+}
 
 /* CONTACT */
 #contact {
