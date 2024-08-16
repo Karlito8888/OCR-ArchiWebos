@@ -1,75 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
   const gallery = document.querySelector(".gallery");
   const categoriesContainer = document.querySelector(".categories");
-  let works = [];
-  let categories = [];
-
-  // Vérifie si l'utilisateur est connecté
-  const loggedIn = localStorage.getItem("loggedIn") === "true";
-  const token = localStorage.getItem("token");
-
-  const loginButton = document.querySelector('nav ul li a[href="login.html"]');
+  const loginButton = document.querySelector(".login-button");
   const headerContainer = document.querySelector(".header-container");
   const editModeHeader = document.querySelector("header .edit-mode");
   const modifyEditMode = document.querySelector(".modify-edit-mode");
 
-  function isUserLoggedIn() {
-    return localStorage.getItem("loggedIn") === "true";
-  }
+  let works = [];
+  let categories = [];
+  const loggedIn = localStorage.getItem("loggedIn") === "true";
+  let allButton;
 
   function applyUserLayout() {
-    if (isUserLoggedIn()) {
-      editModeHeader.style.height = "59px";
-      headerContainer.style.margin = "38px auto 92px";
-      loginButton.textContent = "logout";
-      loginButton.href = "login.html";
-      modifyEditMode.style.display = "block";
-      categoriesContainer.style.display = "none";
-      gallery.style.marginTop = "92px";
-    } else {
-      editModeHeader.style.height = "0";
-      headerContainer.style.margin = "50px auto 139px";
-      loginButton.textContent = "login";
-      loginButton.href = "login.html";
-      modifyEditMode.style.display = "none";
-      categoriesContainer.style.display = "flex";
-      gallery.style.marginTop = "0";
-    }
-  }
-
-  if (loggedIn) {
-    applyUserLayout();
+    const isLoggedIn = loggedIn;
+    editModeHeader.style.height = isLoggedIn ? "59px" : "0";
+    headerContainer.style.margin = isLoggedIn
+      ? "38px auto 92px"
+      : "50px auto 139px";
+    loginButton.textContent = isLoggedIn ? "logout" : "login";
+    loginButton.href = isLoggedIn ? "#" : "login.html";
+    modifyEditMode.style.display = isLoggedIn ? "block" : "none";
+    categoriesContainer.style.display = isLoggedIn ? "none" : "flex";
+    gallery.style.marginTop = isLoggedIn ? "92px" : "0";
   }
 
   // Fonction pour créer et ajouter les figures dans la galerie
   function createGalleryItem(item) {
     const figure = document.createElement("figure");
-    const img = document.createElement("img");
-    img.src = item.imageUrl;
-    img.alt = item.title;
-    const figcaption = document.createElement("figcaption");
-    figcaption.textContent = item.title;
-
-    figure.appendChild(img);
-    figure.appendChild(figcaption);
+    figure.innerHTML = `
+      <img src="${item.imageUrl}" alt="${item.title}">
+      <figcaption>${item.title}</figcaption>
+    `;
     gallery.appendChild(figure);
   }
 
-  // Fonction pour créer les boutons de catégories
+  // Crée les boutons de catégories
   function createCategoryButtons(categories) {
-    const allButton = document.createElement("button");
-    allButton.textContent = "Tous";
-    allButton.classList.add("active");
-    allButton.addEventListener("click", () => {
+    const createButton = (text, callback) => {
+      const button = document.createElement("button");
+      button.textContent = text;
+      button.addEventListener("click", callback);
+      return button;
+    };
+
+    allButton = createButton("Tous", () => {
       setActiveButton(allButton);
       displayWorks(works);
     });
     categoriesContainer.appendChild(allButton);
+    allButton.classList.add("active");
 
     categories.forEach((category) => {
-      const button = document.createElement("button");
-      button.textContent = category.name;
-      button.addEventListener("click", () => {
+      const button = createButton(category.name, () => {
         setActiveButton(button);
         filterWorksByCategory(category.id);
       });
@@ -77,58 +59,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Fonction pour définir le bouton actif
-  function setActiveButton(button) {
-    const buttons = categoriesContainer.querySelectorAll("button");
-    buttons.forEach((btn) => btn.classList.remove("active"));
-    button.classList.add("active");
+  // Définit le bouton actif
+  function setActiveButton(activeButton) {
+    categoriesContainer
+      .querySelectorAll("button")
+      .forEach((btn) => btn.classList.remove("active"));
+    activeButton.classList.add("active");
   }
 
   // Fonction pour afficher les travaux
   function displayWorks(worksToDisplay) {
     gallery.innerHTML = ""; // Clear existing works
-    worksToDisplay.forEach((item) => createGalleryItem(item));
+    worksToDisplay.forEach(createGalleryItem);
   }
 
   // Fonction pour filtrer les travaux par catégorie
   function filterWorksByCategory(categoryId) {
-    const filteredWorks = works.filter(
-      (work) => work.categoryId === categoryId
-    );
-    displayWorks(filteredWorks);
+    displayWorks(works.filter((work) => work.categoryId === categoryId));
   }
 
-  // Fonction pour récupérer les données de l'API
-  function fetchData() {
-    fetch("http://localhost:5678/api/works/")
-      .then((response) => response.json())
-      .then((data) => {
-        works = data; // Stocker les travaux récupérés
-        displayWorks(works); // Afficher tous les travaux initialement
+  // Récupère les données de l'API
+  async function fetchData() {
+    try {
+      const response = await fetch("http://localhost:5678/api/works/");
+      works = await response.json();
+      displayWorks(works);
 
-        // Extraire les catégories uniques en utilisant Set et les onvertir le Set en tableau.
-
-        const categoryIds = [...new Set(works.map((work) => work.categoryId))];
-        categories = categoryIds.map(
-          (id) => works.find((work) => work.category.id === id).category
-        );
-        createCategoryButtons(categories);
-      })
-      .catch((error) =>
-        console.error("Erreur lors de la récupération des données:", error)
+      const categoryIds = [...new Set(works.map((work) => work.categoryId))];
+      categories = categoryIds.map(
+        (id) => works.find((work) => work.category.id === id).category
       );
+      createCategoryButtons(categories);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des données:", error);
+    }
   }
 
-  // Appeler la fonction pour récupérer les données
+  // Initialisation
+  applyUserLayout();
   fetchData();
 
+  // Gestion du clic sur le bouton logout
   loginButton.addEventListener("click", (event) => {
     if (loggedIn) {
       event.preventDefault();
       localStorage.removeItem("loggedIn");
       localStorage.removeItem("token");
-      applyUserLayout();
       window.location.href = "login.html";
+      applyUserLayout();
     }
   });
 });
