@@ -1,8 +1,9 @@
 import { applyUserLayout } from "./utils/layout.js";
+import { createCategoryButtons } from "./utils/categories.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const gallery = document.querySelector(".gallery");
-  const categoriesContainer = document.querySelector(".categories");
+  // const gallery = document.querySelector(".gallery");
+  // const categoriesContainer = document.querySelector(".categories");
   const loginButton = document.querySelector(".login-button");
   // const headerContainer = document.querySelector(".header-container");
   // const editModeHeader = document.querySelector("header .edit-mode");
@@ -11,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loggedIn = localStorage.getItem("loggedIn") === "true";
   let works = [];
   let categories = [];
-  let allButton;
+  // let allButton;
 
   // function applyUserLayout() {
   //   const isLoggedIn = loggedIn;
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour créer et ajouter les figures dans la galerie
   function createGalleryItem(item) {
+    const gallery = document.querySelector(".gallery");
     const figure = document.createElement("figure");
     figure.innerHTML = `
       <img src="${item.imageUrl}" alt="${item.title}">
@@ -36,49 +38,50 @@ document.addEventListener("DOMContentLoaded", () => {
     gallery.appendChild(figure);
   }
 
-  // Crée les boutons de catégories
-  function createCategoryButtons(categories) {
-    const createButton = (text, callback) => {
-      const button = document.createElement("button");
-      button.textContent = text;
-      button.addEventListener("click", callback);
-      return button;
-    };
+  // // Crée les boutons de catégories
+  // function createCategoryButtons(categories) {
+  //   const createButton = (text, callback) => {
+  //     const button = document.createElement("button");
+  //     button.textContent = text;
+  //     button.addEventListener("click", callback);
+  //     return button;
+  //   };
 
-    allButton = createButton("Tous", () => {
-      setActiveButton(allButton);
-      displayWorks(works);
-    });
-    categoriesContainer.appendChild(allButton);
-    allButton.classList.add("active");
+  //   allButton = createButton("Tous", () => {
+  //     setActiveButton(allButton);
+  //     displayWorks(works);
+  //   });
+  //   categoriesContainer.appendChild(allButton);
+  //   allButton.classList.add("active");
 
-    categories.forEach((category) => {
-      const button = createButton(category.name, () => {
-        setActiveButton(button);
-        filterWorksByCategory(category.id);
-      });
-      categoriesContainer.appendChild(button);
-    });
-  }
+  //   categories.forEach((category) => {
+  //     const button = createButton(category.name, () => {
+  //       setActiveButton(button);
+  //       filterWorksByCategory(category.id);
+  //     });
+  //     categoriesContainer.appendChild(button);
+  //   });
+  // }
 
-  // Définit le bouton actif
-  function setActiveButton(activeButton) {
-    categoriesContainer
-      .querySelectorAll("button")
-      .forEach((btn) => btn.classList.remove("active"));
-    activeButton.classList.add("active");
-  }
+  // // Définit le bouton actif
+  // function setActiveButton(activeButton) {
+  //   categoriesContainer
+  //     .querySelectorAll("button")
+  //     .forEach((btn) => btn.classList.remove("active"));
+  //   activeButton.classList.add("active");
+  // }
 
   // Fonction pour afficher les travaux
   function displayWorks(worksToDisplay) {
+    const gallery = document.querySelector(".gallery");
     gallery.innerHTML = ""; // Clear existing works
     worksToDisplay.forEach(createGalleryItem);
   }
 
-  // Fonction pour filtrer les travaux par catégorie
-  function filterWorksByCategory(categoryId) {
-    displayWorks(works.filter((work) => work.categoryId === categoryId));
-  }
+  // // Fonction pour filtrer les travaux par catégorie
+  // function filterWorksByCategory(categoryId) {
+  //   displayWorks(works.filter((work) => work.categoryId === categoryId));
+  // }
 
   // Récupère les données de l'API
   async function fetchData() {
@@ -91,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
       categories = categoryIds.map(
         (id) => works.find((work) => work.category.id === id).category
       );
-      createCategoryButtons(categories);
+      createCategoryButtons(categories, works, displayWorks);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
     }
@@ -103,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault();
       localStorage.removeItem("loggedIn");
       localStorage.removeItem("token");
+      applyUserLayout(false);
       window.location.href = "login.html";
-      applyUserLayout();
     }
   });
 
