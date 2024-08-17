@@ -27,7 +27,8 @@
 					<li><a href="index.html">projets</a></li>
 					<li><a href="#contact">contact</a></li>
 					<li><a href="login.html" class="login-button">login</a></li>
-					<li><a href="https://www.instagram.com" target="_blank"><img src="./assets/icons/instagram.png" alt="Logo Instagram"></a></li>
+					<li><a href="https://www.instagram.com" target="_blank"><img src="./assets/icons/instagram.png"
+								alt="Logo Instagram"></a></li>
 				</ul>
 			</nav>
 		</div>
@@ -51,7 +52,7 @@
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
 			<div class="modify-edit-mode">
-				<button>
+				<button id="openModalButton">
 					<img src="./assets/icons/pen-to-square-regular.svg" alt="logo du mode édition">
 					<p>modifier</p>
 				</button>
@@ -62,7 +63,7 @@
 			<!-- Modale pour gérer les projets -->
 			<div id="modal" class="modal">
 				<div class="modal-content">
-				    <div class="nav-buttons-container">
+					<div class="nav-buttons-container">
 						<button type="button" id="backToGalleryButton">
 							<img src="./assets/icons/arrow-left-solid.svg" alt="fleche gauche">
 						</button>
@@ -84,7 +85,8 @@
 									</div>
 									<span>+ Ajouter photo</span>
 									<p>jpg, png : 4mo max</p>
-									<input type="file" id="projectImage" name="projectImage" accept="image/*" required />
+									<input type="file" id="projectImage" name="projectImage" accept="image/*"
+										required />
 								</label>
 							</div>
 							<label for="projectTitle">Titre</label>
@@ -93,7 +95,7 @@
 							<select id="projectCategory" name="projectCategory" required>
 							</select>
 							<button type="submit" id="submitPhotoButton">Valider</button>
-							
+
 						</form>
 					</div>
 				</div>
@@ -121,8 +123,9 @@
 			</ul>
 		</nav>
 	</footer>
-	<script src="./assets/index.js"></script>
-	<script src="./assets/modal.js"></script>
+	<script type="module" src="./assets/src/index.js"></script>
+	<!-- <script src="./assets/index.js"></script>
+	<script src="./assets/modal.js"></script> -->
 </body>
 
 </html>

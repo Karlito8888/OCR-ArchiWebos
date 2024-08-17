@@ -1,28 +1,30 @@
+import { applyUserLayout } from "./utils/layout.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const gallery = document.querySelector(".gallery");
   const categoriesContainer = document.querySelector(".categories");
   const loginButton = document.querySelector(".login-button");
-  const headerContainer = document.querySelector(".header-container");
-  const editModeHeader = document.querySelector("header .edit-mode");
-  const modifyEditMode = document.querySelector(".modify-edit-mode");
+  // const headerContainer = document.querySelector(".header-container");
+  // const editModeHeader = document.querySelector("header .edit-mode");
+  // const modifyEditMode = document.querySelector(".modify-edit-mode");
 
+  const loggedIn = localStorage.getItem("loggedIn") === "true";
   let works = [];
   let categories = [];
-  const loggedIn = localStorage.getItem("loggedIn") === "true";
   let allButton;
 
-  function applyUserLayout() {
-    const isLoggedIn = loggedIn;
-    editModeHeader.style.height = isLoggedIn ? "59px" : "0";
-    headerContainer.style.margin = isLoggedIn
-      ? "38px auto 92px"
-      : "50px auto 139px";
-    loginButton.textContent = isLoggedIn ? "logout" : "login";
-    loginButton.href = isLoggedIn ? "#" : "login.html";
-    modifyEditMode.style.display = isLoggedIn ? "block" : "none";
-    categoriesContainer.style.display = isLoggedIn ? "none" : "flex";
-    gallery.style.marginTop = isLoggedIn ? "92px" : "0";
-  }
+  // function applyUserLayout() {
+  //   const isLoggedIn = loggedIn;
+  //   editModeHeader.style.height = isLoggedIn ? "59px" : "0";
+  //   headerContainer.style.margin = isLoggedIn
+  //     ? "38px auto 92px"
+  //     : "50px auto 139px";
+  //   loginButton.textContent = isLoggedIn ? "logout" : "login";
+  //   loginButton.href = isLoggedIn ? "#" : "login.html";
+  //   modifyEditMode.style.display = isLoggedIn ? "block" : "none";
+  //   categoriesContainer.style.display = isLoggedIn ? "none" : "flex";
+  //   gallery.style.marginTop = isLoggedIn ? "92px" : "0";
+  // }
 
   // Fonction pour créer et ajouter les figures dans la galerie
   function createGalleryItem(item) {
@@ -95,10 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Initialisation
-  applyUserLayout();
-  fetchData();
-
   // Gestion du clic sur le bouton logout
   loginButton.addEventListener("click", (event) => {
     if (loggedIn) {
@@ -109,4 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
       applyUserLayout();
     }
   });
+
+  // Initialisation
+  applyUserLayout(loggedIn);
+  fetchData();
 });
