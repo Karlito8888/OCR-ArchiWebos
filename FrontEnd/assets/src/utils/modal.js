@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+// utils/modal.js
+
+export function initializeModal() {
   const modal = document.getElementById("modal");
   const closeModalButton = document.getElementById("closeModalButton");
   const modifyButton = document.querySelector(".modify-edit-mode button");
@@ -13,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const addPhotoBox = document.getElementById("addPhotoBox");
   const initialAddPhotoBoxContent = addPhotoBox.innerHTML;
 
-  // Fonction pour ouvrir la modale
+  // Votre code pour ouvrir, fermer la modale et autres fonctions
   function openModal() {
     modal.style.display = "block";
     showGalleryView(); // Afficher la vue de la galerie par défaut
@@ -21,19 +23,16 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchCategories();
   }
 
-  // Fonction pour fermer la modale
   function closeModal() {
     modal.style.display = "none";
   }
 
-  // Fonction pour afficher la vue Galerie
   function showGalleryView() {
     galleryView.classList.add("active");
     addPhotoView.classList.remove("active");
     backToGalleryButton.style.visibility = "hidden";
   }
 
-  // Fonction pour afficher la vue Ajouter Photo
   function showAddPhotoView() {
     galleryView.classList.remove("active");
     addPhotoView.classList.add("active");
@@ -52,32 +51,27 @@ document.addEventListener("DOMContentLoaded", () => {
       );
   }
 
-  // Fonction pour afficher les travaux dans la galerie
   function displayWorks(works) {
     imageGallery.innerHTML = "";
     works.forEach(createGalleryItem);
   }
 
-  // Fonction pour créer un élément de galerie
   function createGalleryItem(item) {
     const figure = document.createElement("figure");
     const img = document.createElement("img");
     img.src = item.imageUrl;
 
-    // Création de l'icône de corbeille
     const deleteIcon = document.createElement("div");
     deleteIcon.classList.add("delete-icon");
     deleteIcon.innerHTML = `<img src="./assets/icons/trash-can-solid.svg" alt="Supprimer">`;
     deleteIcon.setAttribute("data-id", item.id);
 
-    // Ajout de l'événement de suppression
     deleteIcon.addEventListener("click", () => deleteWork(item.id, figure));
 
     figure.append(deleteIcon, img);
     imageGallery.appendChild(figure);
   }
 
-  // Fonction pour supprimer un travail
   async function deleteWork(workId, figure) {
     try {
       const response = await fetch(
@@ -98,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Fonction pour récupérer et afficher les catégories dans le select
   async function fetchCategories() {
     try {
       const response = await fetch("http://localhost:5678/api/categories/");
@@ -116,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Soumettre le formulaire et ajouter un nouveau projet
   projectForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -124,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageFile = projectImageInput.files[0];
     const category = document.getElementById("projectCategory").value;
 
-    // Validation
     if (!title || !imageFile || !category) {
       alert("Veuillez remplir tous les champs.");
       return;
@@ -165,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Gestion du changement de fichier d'image
   projectImageInput.addEventListener("change", (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -204,4 +194,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   addPhotoButton.addEventListener("click", showAddPhotoView);
   backToGalleryButton.addEventListener("click", showGalleryView);
-});
+}
