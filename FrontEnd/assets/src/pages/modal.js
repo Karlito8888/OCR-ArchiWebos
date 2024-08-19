@@ -1,5 +1,9 @@
 // src/pages/modal.js
 
+import { fetchWorks, fetchCategories, addWork } from "../utils/api.js";
+import { createGalleryItem } from "../components/gallery.js";
+import { addProject } from "../utils/addProject.js"
+
 export function initializeModal() {
   const modal = document.getElementById("modal");
   const closeModalButton = document.getElementById("closeModalButton");
@@ -20,7 +24,7 @@ export function initializeModal() {
     modal.style.display = "block";
     showGalleryView(); // Afficher la vue de la galerie par défaut
     fetchData(); // Charger les travaux existants
-    fetchCategories();
+    fetchCategoriesInModal();
   }
 
   function closeModal() {
@@ -40,62 +44,23 @@ export function initializeModal() {
   }
 
   // Fonction pour récupérer et afficher les travaux
-  function fetchData() {
-    fetch("http://localhost:5678/api/works/")
-      .then((response) => response.json())
-      .then((data) => {
-        displayWorks(data); // Afficher tous les travaux initialement
-      })
-      .catch((error) =>
-        console.error("Erreur lors de la récupération des données:", error)
-      );
-  }
-
-  function displayWorks(works) {
-    imageGallery.innerHTML = "";
-    works.forEach(createGalleryItem);
-  }
-
-  function createGalleryItem(item) {
-    const figure = document.createElement("figure");
-    const img = document.createElement("img");
-    img.src = item.imageUrl;
-
-    const deleteIcon = document.createElement("div");
-    deleteIcon.classList.add("delete-icon");
-    deleteIcon.innerHTML = `<img src="./assets/icons/trash-can-solid.svg" alt="Supprimer">`;
-    deleteIcon.setAttribute("data-id", item.id);
-
-    deleteIcon.addEventListener("click", () => deleteWork(item.id, figure));
-
-    figure.append(deleteIcon, img);
-    imageGallery.appendChild(figure);
-  }
-
-  async function deleteWork(workId, figure) {
+  async function fetchData() {
     try {
-      const response = await fetch(
-        `http://localhost:5678/api/works/${workId}`,
-        {
-          method: "DELETE",
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
-
-      if (!response.ok)
-        throw new Error("Erreur lors de la suppression du projet");
-
-      figure.remove();
-      console.log(`Projet ${workId} supprimé avec succès`);
+      const works = await fetchWorks();
+      displayWorksInModal(works); // Afficher tous les travaux initialement
     } catch (error) {
-      console.error("Erreur:", error);
+      console.error("Erreur lors de la récupération des données:", error);
     }
   }
 
-  async function fetchCategories() {
+  function displayWorksInModal(works) {
+    imageGallery.innerHTML = "";
+    works.forEach((work) => createGalleryItem(work, imageGallery));
+  }
+
+  async function fetchCategoriesInModal() {
     try {
-      const response = await fetch("http://localhost:5678/api/categories/");
-      const categories = await response.json();
+      const categories = await fetchCategories();
       projectCategory.innerHTML =
         '<option value="" disabled selected></option>';
       categories.forEach((category) => {
@@ -136,17 +101,15 @@ export function initializeModal() {
     formData.append("category", category);
 
     try {
-      const response = await fetch("http://localhost:5678/api/works/", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        body: formData,
-      });
-
-      if (!response.ok) throw new Error("Erreur lors de l'ajout du projet");
-
-      const data = await response.json();
+      // Appeler la fonction addWork pour ajouter le projet
+      const data = await addWork(formData);
       console.log("Projet ajouté avec succès:", data);
-      createGalleryItem(data);
+
+      // Récupérer la liste mise à jour des projets
+      const updatedWorks = await fetchWorks();
+
+      // Mettre à jour la galerie avec les projets récupérés
+      displayWorksInModal(updatedWorks);
 
       projectForm.reset();
       showGalleryView();

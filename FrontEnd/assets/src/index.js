@@ -1,12 +1,18 @@
 import { applyUserLayout } from "./utils/layout.js";
-import { fetchData } from "./utils/api.js";
+// import { fetchData } from "./utils/api.js";
+import { fetchWorks, fetchCategories } from "./utils/api.js";
 import { initializeModal } from "./pages/modal.js";
 import { updateLoginButton, handleLogout } from "./pages/login.js";
+import {
+  createCategoryButtons,
+  setActiveButton,
+} from "./components/categories.js";
+import { displayWorks } from "./components/gallery.js";
 
 // Fonction isLoggedIn
 const isLoggedIn = () => localStorage.getItem("loggedIn") === "true";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const loginButton = document.querySelector(".login-button");
   const loggedIn = isLoggedIn();
 
@@ -22,6 +28,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialisation
   applyUserLayout(loggedIn);
-  fetchData();
+
+  // Fetch and display works and categories
+  const works = await fetchWorks();
+  displayWorks(works);
+
+  const categories = await fetchCategories();
+  createCategoryButtons(categories, works, displayWorks);
+  setActiveButton(document.querySelector(".categories button"));
+
   initializeModal();
 });
