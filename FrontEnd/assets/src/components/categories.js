@@ -1,4 +1,4 @@
-// src/utils/categories.js
+// src/components/categories.js
 
 let allButton;
 

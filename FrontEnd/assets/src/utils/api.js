@@ -1,7 +1,7 @@
 // src/utils/api.js
 
-import { createCategoryButtons } from "./categories.js";
-import { displayWorks } from "./gallery.js";
+import { createCategoryButtons } from "../components/categories.js";
+import { displayWorks } from "../components/gallery.js";
 
 export async function fetchData() {
   let works = [];

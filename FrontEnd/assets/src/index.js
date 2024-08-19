@@ -1,7 +1,7 @@
 import { applyUserLayout } from "./utils/layout.js";
 import { fetchData } from "./utils/api.js";
-import { initializeModal } from "./utils/modal.js";
-import { updateLoginButton, handleLogout } from "./login.js";
+import { initializeModal } from "./pages/modal.js";
+import { updateLoginButton, handleLogout } from "./pages/login.js";
 
 // Fonction isLoggedIn
 const isLoggedIn = () => localStorage.getItem("loggedIn") === "true";

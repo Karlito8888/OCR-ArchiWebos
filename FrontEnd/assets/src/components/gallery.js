@@ -1,4 +1,4 @@
-// src/utils/gallery.js
+// src/components/gallery.js
 
 export function createGalleryItem(item) {
   const gallery = document.querySelector(".gallery");

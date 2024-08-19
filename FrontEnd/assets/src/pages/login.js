@@ -1,3 +1,5 @@
+// src/pages/login.js
+
 export function updateLoginButton(isLoggedIn) {
   const loginButton = document.querySelector(".login-button");
   loginButton.textContent = isLoggedIn ? "logout" : "login";

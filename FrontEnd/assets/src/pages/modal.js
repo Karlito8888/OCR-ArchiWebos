@@ -1,4 +1,4 @@
-// utils/modal.js
+// src/pages/modal.js
 
 export function initializeModal() {
   const modal = document.getElementById("modal");
