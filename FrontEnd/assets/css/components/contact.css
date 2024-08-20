@@ -1,0 +1,49 @@
+/* CONTACT */
+#contact {
+  width: 380px;
+  margin: 57px auto 45px;
+  color: var(--black2);
+}
+#contact > * {
+  text-align: center;
+}
+#contact h2 {
+  margin-bottom: 12px;
+}
+#contact p {
+  font-size: 16px;
+}
+#contact form {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+#contact label {
+  margin-top: 40px;
+  margin-bottom: 11px;
+  font-weight: 500;
+}
+
+#contact input {
+  height: 51px;
+  font-size: 1.2em;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#contact textarea {
+  height: 174px;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#contact input[type="submit"] {
+  width: 180px;
+  height: 36px;
+  font-family: "Syne";
+  font-weight: 700;
+  color: var(--white1);
+  background-color: var(--green1);
+  margin-top: 40px;
+  margin-inline: auto;
+  text-align: center;
+  border-radius: 60px;
+}

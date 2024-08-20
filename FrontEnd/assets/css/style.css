@@ -1,0 +1,9 @@
+@import url("./utils/reset.css");
+@import url("./utils/main.css"); 
+@import url("./components/header.css");
+@import url("./components/introduction.css");
+@import url("./components/portfolio.css");
+@import url("./components/contact.css");
+@import url("./components/footer.css");
+@import url("./pages/login.css");
+@import url("./pages/modal.css");

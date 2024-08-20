@@ -1,0 +1,73 @@
+/* LOGIN */
+
+.login-form {
+  width: 380px;
+  margin-inline: auto;
+  margin-top: 10px;
+  margin-bottom: 350px;
+  text-align: center;
+  position: relative;
+}
+
+.login-form h2 {
+  margin-bottom: 37px;
+}
+
+.login-form form {
+  display: grid;
+  gap: 30px;
+}
+
+.login-form .form-group {
+  width: 380px;
+}
+
+.login-form .form-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.login-form .form-group input {
+  width: 100%;
+  max-width: 380px;
+  padding: 10px;
+  background-color: var(--white1);
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+  font-size: 16px;
+}
+
+.login-form button {
+  width: 180px;
+  height: 36px;
+  background-color: #3e7064;
+  color: var(--white1);
+  text-align: center;
+  border: none;
+  border-radius: 60px;
+  font-weight: 700;
+  margin-inline: auto;
+  margin-top: 7px;
+  transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+  background-color: #2f544b;
+}
+
+.login-form .forgot-password {
+  display: block;
+  font-weight: 500;
+  color: var(--black2);
+  cursor: pointer;
+}
+.login-form #error-message {
+  position: absolute;
+  width: 100%;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+  display: none;
+}

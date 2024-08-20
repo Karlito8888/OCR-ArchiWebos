@@ -109,7 +109,7 @@ export function initializeModal() {
   window.addEventListener("click", (event) => {
     if (event.target === modal) closeModal();
   });
-  
+
   addPhotoButton.addEventListener("click", showAddPhotoView);
   backToGalleryButton.addEventListener("click", showGalleryView);
 }

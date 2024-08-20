@@ -1,0 +1,225 @@
+/* MODALE */
+.modal {
+  display: none; /* Caché par défaut */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-content {
+  background-color: var(--white1);
+  margin: 15% auto;
+  padding: 26px 30px;
+  border-radius: 10px;
+  width: 630px;
+}
+.nav-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-buttons-container button {
+  background-color: transparent;
+}
+#backToGalleryButton {
+  width: 21px;
+  height: 21px;
+  visibility: hidden;
+}
+#backToGalleryButton img {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+#closeModalButton {
+  width: 24px;
+  height: 24px;
+  color: var(--black1);
+  font-size: 24px;
+  font-weight: bold;
+}
+.modal-view {
+  display: none; /* Caché par défaut */
+  padding-inline: 75px;
+}
+.modal-view.active {
+  display: grid;
+  max-width: 100%;
+}
+.modal-view h2 {
+  font-size: 26px;
+  text-align: center;
+  color: var(--black1);
+  margin-top: 10px;
+  margin-inline: auto;
+}
+#imageGallery {
+  display: grid;
+  max-width: 100%;
+  height: auto;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px 8px;
+  margin: 46px auto 67px;
+  position: relative;
+}
+#imageGallery figure {
+  width: 100%;
+  position: relative;
+}
+#imageGallery figure .delete-icon {
+  position: absolute;
+  top: 7px;
+  right: 5px;
+  background-color: var(--black1);
+  padding: 3px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+#imageGallery figure .delete-icon img {
+  height: 11px;
+  display: block;
+}
+#imageGallery figure img {
+  width: 100%;
+  height: 103px;
+  object-fit: cover;
+}
+#imageGallery::after {
+  position: absolute;
+  content: "";
+  height: 1px;
+  bottom: -67px;
+  width: 100%;
+  background-color: var(--grey1);
+}
+#addPhotoButton,
+#submitPhotoButton {
+  width: 237px;
+  height: 36px;
+  border: none;
+  outline: none;
+  border-radius: 60px;
+  font-family: "Syne";
+  color: var(--white1);
+  font-weight: 700;
+  margin: 38px auto 45px;
+}
+#addPhotoButton {
+  background-color: var(--green1);
+}
+
+#submitPhotoButton {
+  background-color: var(--grey2);
+}
+#projectForm {
+  margin-top: 36px;
+  display: grid;
+  position: relative;
+}
+#projectForm::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 1px;
+  bottom: 123px;
+  background-color: var(--grey1);
+}
+#addPhotoWrapper {
+  height: 100%;
+  max-height: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#addPhotoBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #eef2f7;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+#addPhotoBox.no-padding {
+  padding: 0;
+}
+#addPhotoBox .delete-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--black1);
+  padding: 3px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.projectImageIcon {
+  width: 68px;
+  margin-bottom: 10px;
+}
+.projectImageIcon img {
+  width: 100%;
+}
+#addPhotoBox span {
+  font-weight: 500;
+  padding: 10px 33px;
+  color: #306685;
+  border-radius: 50px;
+  background-color: var(--grey2);
+  margin-bottom: 7px;
+}
+
+#addPhotoBox p {
+  font-size: 10px;
+  color: #666666;
+}
+
+#projectImage {
+  display: none;
+}
+#projectForm label {
+  margin-bottom: 10px;
+}
+#projectTitle,
+#projectCategory {
+  height: 51px;
+  font-size: 1.2em;
+  border: none;
+  background-color: var(--white1);
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  padding-left: 16px;
+  color: var(--grey3);
+  letter-spacing: 1px;
+}
+#projectTitle {
+  margin-bottom: 21px;
+}
+#projectCategory {
+  appearance: none;
+  background: url("./icons/chevron-down-solid.svg") no-repeat 92%;
+  background-size: 12px;
+  margin-bottom: 47px;
+  position: relative;
+}
+#projectCategory option {
+  padding-left: 16px;
+  color: var(--grey3);
+  letter-spacing: 1px;
+}
+#submitPhotoButton {
+  margin-top: 32px;
+  background-color: #a7a7a7;
+  position: relative;
+}

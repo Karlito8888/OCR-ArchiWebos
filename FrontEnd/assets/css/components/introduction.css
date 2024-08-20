@@ -1,0 +1,29 @@
+/* INTRODUCTION */
+#introduction {
+  height: 355px;
+  display: flex;
+  align-items: center;
+  gap: 72px;
+  margin-bottom: 139px;
+}
+#introduction figure {
+  width: 474px;
+  height: 100%;
+}
+#introduction img {
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+
+#introduction article {
+  flex: 1;
+}
+#introduction h2 {
+  margin-bottom: 1em;
+}
+
+#introduction p {
+  margin-bottom: 0.5em;
+  color: var(--black2);
+}

@@ -1,0 +1,14 @@
+/* FOOTER */
+footer {
+  height: 60px;
+  width: 1440px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: var(--white1);
+}
+
+footer nav li {
+  font-weight: 300;
+  margin-right: 107px;
+}

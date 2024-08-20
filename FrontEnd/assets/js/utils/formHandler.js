@@ -1,6 +1,6 @@
 // src/utils/formHandler.js
 
-import { fetchWorks, addWork } from "../utils/api.js";
+import { fetchWorks, addWork } from "./api.js";
 
 export async function handleProjectFormSubmit(
   event,
