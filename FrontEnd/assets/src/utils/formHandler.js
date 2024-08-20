@@ -1,19 +1,19 @@
-import { addWork, fetchWorks } from "./api.js";
-import { displayWorks } from "../components/gallery.js";
+// src/utils/formHandler.js
 
-export async function addProject(event) {
+import { fetchWorks, addWork } from "../utils/api.js";
+
+export async function handleProjectFormSubmit(
+  event,
+  projectForm,
+  projectImageInput,
+  showGalleryView,
+  displayWorksInModal
+) {
   event.preventDefault();
 
-   const title = document.getElementById("projectTitle").value;
-   const projectImageInput = document.getElementById("projectImage");
-   const category = document.getElementById("projectCategory").value;
-
-   if (!projectImageInput) {
-     console.error("L'élément d'entrée d'image n'a pas été trouvé.");
-     return;
-   }
-
-   const imageFile = projectImageInput.files[0];
+  const title = document.getElementById("projectTitle").value;
+  const imageFile = projectImageInput.files[0];
+  const category = document.getElementById("projectCategory").value;
 
   if (!title || !imageFile || !category) {
     alert("Veuillez remplir tous les champs.");
@@ -43,11 +43,10 @@ export async function addProject(event) {
     const updatedWorks = await fetchWorks();
 
     // Mettre à jour la galerie avec les projets récupérés
-    displayWorks(updatedWorks);
+    displayWorksInModal(updatedWorks);
 
-    document.getElementById("projectForm").reset();
-    document.getElementById("gallery-view").classList.add("active");
-    document.getElementById("add-photo-view").classList.remove("active");
+    projectForm.reset();
+    showGalleryView();
   } catch (error) {
     console.error("Erreur:", error);
     alert("Une erreur est survenue lors de l'ajout du projet.");

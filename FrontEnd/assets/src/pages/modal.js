@@ -2,7 +2,8 @@
 
 import { fetchWorks, fetchCategories, addWork } from "../utils/api.js";
 import { createGalleryItem } from "../components/gallery.js";
-import { addProject } from "../utils/addProject.js"
+import { handleImageChange } from "../utils/imageHandler.js";
+import { handleProjectFormSubmit } from "../utils/formHandler.js";
 
 export function initializeModal() {
   const modal = document.getElementById("modal");
@@ -19,45 +20,50 @@ export function initializeModal() {
   const addPhotoBox = document.getElementById("addPhotoBox");
   const initialAddPhotoBoxContent = addPhotoBox.innerHTML;
 
-  // Votre code pour ouvrir, fermer la modale et autres fonctions
+  // Ouvre la modale et charge les données
   function openModal() {
     modal.style.display = "block";
-    showGalleryView(); // Afficher la vue de la galerie par défaut
-    fetchData(); // Charger les travaux existants
+    showGalleryView();
+    fetchData();
     fetchCategoriesInModal();
   }
 
+  // Ferme la modale
   function closeModal() {
     modal.style.display = "none";
   }
 
+  // Affiche la vue de la galerie
   function showGalleryView() {
     galleryView.classList.add("active");
     addPhotoView.classList.remove("active");
     backToGalleryButton.style.visibility = "hidden";
   }
 
+  // Affiche la vue pour ajouter une photo
   function showAddPhotoView() {
     galleryView.classList.remove("active");
     addPhotoView.classList.add("active");
     backToGalleryButton.style.visibility = "visible";
   }
 
-  // Fonction pour récupérer et afficher les travaux
+  // Récupère et affiche les travaux
   async function fetchData() {
     try {
       const works = await fetchWorks();
-      displayWorksInModal(works); // Afficher tous les travaux initialement
+      displayWorksInModal(works);
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
     }
   }
 
+  // Affiche les travaux dans la modale
   function displayWorksInModal(works) {
     imageGallery.innerHTML = "";
     works.forEach((work) => createGalleryItem(work, imageGallery));
   }
 
+  // Récupère et affiche les catégories dans la modale
   async function fetchCategoriesInModal() {
     try {
       const categories = await fetchCategories();
@@ -74,77 +80,25 @@ export function initializeModal() {
     }
   }
 
-  projectForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  // Les gestionnaires d'événements
+  projectForm.addEventListener("submit", (event) =>
+    handleProjectFormSubmit(
+      event,
+      projectForm,
+      projectImageInput,
+      showGalleryView,
+      displayWorksInModal
+    )
+  );
 
-    const title = document.getElementById("projectTitle").value;
-    const imageFile = projectImageInput.files[0];
-    const category = document.getElementById("projectCategory").value;
-
-    if (!title || !imageFile || !category) {
-      alert("Veuillez remplir tous les champs.");
-      return;
-    }
-
-    if (!["image/jpeg", "image/png"].includes(imageFile.type)) {
-      alert("Veuillez sélectionner une image au format JPG ou PNG.");
-      return;
-    }
-    if (imageFile.size > 4 * 1024 * 1024) {
-      alert("La taille de l'image ne doit pas dépasser 4 Mo.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("image", imageFile);
-    formData.append("category", category);
-
-    try {
-      // Appeler la fonction addWork pour ajouter le projet
-      const data = await addWork(formData);
-      console.log("Projet ajouté avec succès:", data);
-
-      // Récupérer la liste mise à jour des projets
-      const updatedWorks = await fetchWorks();
-
-      // Mettre à jour la galerie avec les projets récupérés
-      displayWorksInModal(updatedWorks);
-
-      projectForm.reset();
-      showGalleryView();
-    } catch (error) {
-      console.error("Erreur:", error);
-      alert("Une erreur est survenue lors de l'ajout du projet.");
-    }
-  });
-
-  projectImageInput.addEventListener("change", (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        addPhotoBox.innerHTML = "";
-        addPhotoBox.classList.add("no-padding");
-
-        const photoPreview = document.createElement("img");
-        photoPreview.src = e.target.result;
-        photoPreview.style.height = "170px";
-
-        const deleteIcon = document.createElement("div");
-        deleteIcon.classList.add("delete-icon");
-        deleteIcon.innerHTML = `<img src="./assets/icons/trash-can-solid.svg" alt="Supprimer">`;
-        deleteIcon.addEventListener("click", () => {
-          addPhotoBox.innerHTML = initialAddPhotoBoxContent;
-          addPhotoBox.classList.remove("no-padding");
-          projectImageInput.value = ""; // Réinitialiser l'input file
-        });
-
-        addPhotoBox.append(photoPreview, deleteIcon);
-      };
-      reader.readAsDataURL(file);
-    }
-  });
+  projectImageInput.addEventListener("change", (event) =>
+    handleImageChange(
+      event,
+      addPhotoBox,
+      initialAddPhotoBoxContent,
+      projectImageInput
+    )
+  );
 
   modifyButton.addEventListener("click", (event) => {
     event.preventDefault();
@@ -155,6 +109,7 @@ export function initializeModal() {
   window.addEventListener("click", (event) => {
     if (event.target === modal) closeModal();
   });
+  
   addPhotoButton.addEventListener("click", showAddPhotoView);
   backToGalleryButton.addEventListener("click", showGalleryView);
 }

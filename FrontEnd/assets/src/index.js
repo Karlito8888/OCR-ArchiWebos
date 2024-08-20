@@ -1,5 +1,4 @@
 import { applyUserLayout } from "./utils/layout.js";
-// import { fetchData } from "./utils/api.js";
 import { fetchWorks, fetchCategories } from "./utils/api.js";
 import { initializeModal } from "./pages/modal.js";
 import { updateLoginButton, handleLogout } from "./pages/login.js";

@@ -19,7 +19,7 @@ export function handleLogout(event) {
 const isLoggedIn = () => localStorage.getItem("loggedIn") === "true";
 
 // Fonction pour initialiser la page de connexion
-export function initializeLoginPage() {
+function initializeLoginPage() {
   const form = document.getElementById("loginForm");
   const loginButton = document.querySelector(".login-button");
   const errorMessage = document.getElementById("error-message");

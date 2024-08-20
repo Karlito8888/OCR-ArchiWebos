@@ -1,4 +1,5 @@
 // src/components/gallery.js
+
 import { deleteWork } from "../utils/api.js";
 
 export function displayWorks(works) {
