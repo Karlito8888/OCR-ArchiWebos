@@ -1,5 +1,6 @@
 // src/utils/api.js
 
+// Récupère les travaux
 export async function fetchWorks() {
   try {
     const response = await fetch("http://localhost:5678/api/works/");
@@ -12,6 +13,7 @@ export async function fetchWorks() {
   }
 }
 
+// Récupère les catégories
 export async function fetchCategories() {
   try {
     const response = await fetch("http://localhost:5678/api/categories/");
@@ -24,6 +26,24 @@ export async function fetchCategories() {
   }
 }
 
+// Centralise la récupération des travaux et des catégories
+export async function fetchInitialData() {
+  try {
+    const [works, categories] = await Promise.all([
+      fetchWorks(),
+      fetchCategories(),
+    ]);
+    return { works, categories };
+  } catch (error) {
+    console.error(
+      "Erreur lors de la récupération des données initiales:",
+      error
+    );
+    return { works: [], categories: [] };
+  }
+}
+
+// Connexion de l'utilisateur
 export async function loginUser(email, password) {
   try {
     const response = await fetch("http://127.0.0.1:5678/api/users/login/", {
@@ -39,6 +59,7 @@ export async function loginUser(email, password) {
   }
 }
 
+// Ajout d'un nouveau travail
 export async function addWork(formData) {
   try {
     const response = await fetch("http://localhost:5678/api/works/", {
@@ -56,6 +77,7 @@ export async function addWork(formData) {
   }
 }
 
+// Suppression d'un travail
 export async function deleteWork(workId) {
   try {
     const response = await fetch(`http://localhost:5678/api/works/${workId}`, {

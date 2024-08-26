@@ -26,12 +26,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   applyUserLayout(loggedIn);
 
-  const works = await fetchWorks();
-  displayWorks(works);
+  try {
+    const [works, categories] = await Promise.all([
+      fetchWorks(),
+      fetchCategories(),
+    ]);
 
-  const categories = await fetchCategories();
-  createCategoryButtons(categories, works, displayWorks);
-  setActiveButton(document.querySelector(".categories button"));
+    displayWorks(works);
+    createCategoryButtons(categories, works, displayWorks);
+    setActiveButton(document.querySelector(".categories button"));
 
-  initializeModal();
+    initializeModal(works, categories); // Passe les données à la modal
+  } catch (error) {
+    console.error("Erreur lors du chargement des données:", error);
+  }
 });

@@ -1,11 +1,8 @@
-// src/pages/modal.js
-
-import { fetchWorks, fetchCategories } from "../utils/api.js";
 import { createGalleryItem } from "../components/gallery.js";
 import { handleImageChange } from "../utils/imageHandler.js";
 import { handleProjectFormSubmit } from "../utils/formHandler.js";
 
-export function initializeModal() {
+export function initializeModal(works = [], categories = []) {
   const modal = document.getElementById("modal");
   const closeModalButton = document.getElementById("closeModalButton");
   const modifyButton = document.querySelector(".modify-edit-mode button");
@@ -24,8 +21,8 @@ export function initializeModal() {
   function openModal() {
     modal.style.display = "block";
     showGalleryView();
-    fetchData();
-    fetchCategoriesInModal();
+    displayWorksInModal(works);
+    populateCategories(categories);
   }
 
   // Ferme la modale
@@ -47,37 +44,21 @@ export function initializeModal() {
     backToGalleryButton.style.visibility = "visible";
   }
 
-  // Récupère et affiche les travaux
-  async function fetchData() {
-    try {
-      const works = await fetchWorks();
-      displayWorksInModal(works);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des données:", error);
-    }
-  }
-
   // Affiche les travaux dans la modale
   function displayWorksInModal(works) {
     imageGallery.innerHTML = "";
     works.forEach((work) => createGalleryItem(work, imageGallery));
   }
 
-  // Récupère et affiche les catégories dans la modale
-  async function fetchCategoriesInModal() {
-    try {
-      const categories = await fetchCategories();
-      projectCategory.innerHTML =
-        '<option value="" disabled selected></option>';
-      categories.forEach((category) => {
-        const option = document.createElement("option");
-        option.value = category.id;
-        option.textContent = category.name;
-        projectCategory.appendChild(option);
-      });
-    } catch (error) {
-      console.error("Erreur lors de la récupération des catégories:", error);
-    }
+  // Remplit les catégories dans le select
+  function populateCategories(categories) {
+    projectCategory.innerHTML = '<option value="" disabled selected></option>';
+    categories.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.name;
+      projectCategory.appendChild(option);
+    });
   }
 
   // Les gestionnaires d'événements
