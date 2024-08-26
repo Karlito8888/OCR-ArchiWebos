@@ -208,7 +208,7 @@
 }
 #projectCategory {
   appearance: none;
-  background: url("./icons/chevron-down-solid.svg") no-repeat 92%;
+  background: url("../../icons/chevron-down-solid.svg") no-repeat 92%;
   background-size: 12px;
   margin-bottom: 47px;
   position: relative;

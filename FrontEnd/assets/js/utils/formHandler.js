@@ -11,14 +11,9 @@ export async function handleProjectFormSubmit(
 ) {
   event.preventDefault();
 
-  const title = document.getElementById("projectTitle").value;
   const imageFile = projectImageInput.files[0];
+  const title = document.getElementById("projectTitle").value;
   const category = document.getElementById("projectCategory").value;
-
-  if (!title || !imageFile || !category) {
-    alert("Veuillez remplir tous les champs.");
-    return;
-  }
 
   if (!["image/jpeg", "image/png"].includes(imageFile.type)) {
     alert("Veuillez sélectionner une image au format JPG ou PNG.");
@@ -30,8 +25,8 @@ export async function handleProjectFormSubmit(
   }
 
   const formData = new FormData();
-  formData.append("title", title);
   formData.append("image", imageFile);
+  formData.append("title", title);
   formData.append("category", category);
 
   try {

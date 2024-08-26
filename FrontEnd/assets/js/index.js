@@ -8,7 +8,6 @@ import {
 } from "./components/categories.js";
 import { displayWorks } from "./components/gallery.js";
 
-// Fonction isLoggedIn
 const isLoggedIn = () => localStorage.getItem("loggedIn") === "true";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -25,10 +24,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // Initialisation
   applyUserLayout(loggedIn);
 
-  // Fetch and display works and categories
   const works = await fetchWorks();
   displayWorks(works);
 

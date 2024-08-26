@@ -1,6 +1,6 @@
 // src/pages/modal.js
 
-import { fetchWorks, fetchCategories, addWork } from "../utils/api.js";
+import { fetchWorks, fetchCategories } from "../utils/api.js";
 import { createGalleryItem } from "../components/gallery.js";
 import { handleImageChange } from "../utils/imageHandler.js";
 import { handleProjectFormSubmit } from "../utils/formHandler.js";

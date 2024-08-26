@@ -4,7 +4,7 @@ import { deleteWork } from "../utils/api.js";
 
 export function displayWorks(works) {
   const galleryContainer = document.querySelector(".gallery");
-  galleryContainer.innerHTML = ""; // Clear existing content
+  galleryContainer.innerHTML = "";
 
   works.forEach((work) => {
     const workElement = document.createElement("div");

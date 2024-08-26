@@ -24,7 +24,6 @@ export async function fetchCategories() {
   }
 }
 
-// Fonction pour gérer la connexion de l'utilisateur
 export async function loginUser(email, password) {
   try {
     const response = await fetch("http://127.0.0.1:5678/api/users/login/", {
@@ -53,7 +52,7 @@ export async function addWork(formData) {
     return await response.json();
   } catch (error) {
     console.error(error);
-    throw error; // Rejeter l'erreur pour la gérer dans le gestionnaire de soumission
+    throw error;
   }
 }
 
