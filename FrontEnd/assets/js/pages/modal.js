@@ -5,7 +5,7 @@ import { handleProjectFormSubmit } from "../utils/formHandler.js";
 export function initializeModal(works = [], categories = []) {
   const modal = document.getElementById("modal");
   const closeModalButton = document.getElementById("closeModalButton");
-  const modifyButton = document.querySelector(".modify-edit-mode button");
+  const modifyButton = document.getElementById("openModalButton");
   const addPhotoButton = document.getElementById("addPhotoButton");
   const backToGalleryButton = document.getElementById("backToGalleryButton");
   const galleryView = document.getElementById("gallery-view");
@@ -17,33 +17,30 @@ export function initializeModal(works = [], categories = []) {
   const addPhotoBox = document.getElementById("addPhotoBox");
   const initialAddPhotoBoxContent = addPhotoBox.innerHTML;
 
-  // Ouvre la modale et charge les données
-  function openModal() {
-    modal.style.display = "block";
-    showGalleryView();
-    displayWorksInModal(works);
-    populateCategories(categories);
+  // Gestion de l'affichage de la modale
+  function toggleModal(display) {
+    modal.style.display = display ? "block" : "none";
+    if (display) {
+      showGalleryView();
+      displayWorksInModal(works);
+      populateCategories(categories);
+    }
   }
 
-  // Ferme la modale
-  function closeModal() {
-    modal.style.display = "none";
+  // Gestion de l'affichage des vues (galerie ou ajout de photo)
+  function toggleView(isGalleryView) {
+    galleryView.classList.toggle("active", isGalleryView);
+    addPhotoView.classList.toggle("active", !isGalleryView);
+    backToGalleryButton.style.visibility = isGalleryView ? "hidden" : "visible";
   }
 
-  // Affiche la vue de la galerie
   function showGalleryView() {
-    galleryView.classList.add("active");
-    addPhotoView.classList.remove("active");
-    backToGalleryButton.style.visibility = "hidden";
+    toggleView(true);
   }
 
-  // Affiche la vue pour ajouter une photo
   function showAddPhotoView() {
-    galleryView.classList.remove("active");
-    addPhotoView.classList.add("active");
-    backToGalleryButton.style.visibility = "visible";
+    toggleView(false);
   }
-
   // Affiche les travaux dans la modale
   function displayWorksInModal(works) {
     imageGallery.innerHTML = "";
@@ -61,7 +58,7 @@ export function initializeModal(works = [], categories = []) {
     });
   }
 
-  // Les gestionnaires d'événements
+  // Gestionnaires d'événements
   projectForm.addEventListener("submit", (event) =>
     handleProjectFormSubmit(
       event,
@@ -83,12 +80,12 @@ export function initializeModal(works = [], categories = []) {
 
   modifyButton.addEventListener("click", (event) => {
     event.preventDefault();
-    openModal();
+    toggleModal(true);
   });
 
-  closeModalButton.addEventListener("click", closeModal);
+  closeModalButton.addEventListener("click", () => toggleModal(false));
   window.addEventListener("click", (event) => {
-    if (event.target === modal) closeModal();
+    if (event.target === modal) toggleModal(false);
   });
 
   addPhotoButton.addEventListener("click", showAddPhotoView);

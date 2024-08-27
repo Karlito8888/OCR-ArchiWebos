@@ -1,5 +1,5 @@
 import { applyUserLayout } from "./utils/layout.js";
-import { fetchWorks, fetchCategories } from "./utils/api.js";
+import { fetchWorks } from "./utils/api.js";
 import { initializeModal } from "./pages/modal.js";
 import { updateLoginButton, handleLogout } from "./pages/login.js";
 import {
@@ -26,18 +26,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   applyUserLayout(loggedIn);
 
-  try {
-    const [works, categories] = await Promise.all([
-      fetchWorks(),
-      fetchCategories(),
-    ]);
+  // On récupère les travaux et les catégories à partir d'un seul appel API
+  const { works, categories } = await fetchWorks();
+  displayWorks(works);
 
-    displayWorks(works);
-    createCategoryButtons(categories, works, displayWorks);
-    setActiveButton(document.querySelector(".categories button"));
+  createCategoryButtons(categories, works, displayWorks);
+  setActiveButton(document.querySelector(".categories button"));
 
-    initializeModal(works, categories); // Passe les données à la modal
-  } catch (error) {
-    console.error("Erreur lors du chargement des données:", error);
-  }
+  initializeModal(works, categories);
 });

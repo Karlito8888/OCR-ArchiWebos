@@ -1,5 +1,3 @@
-// src/components/categories.js
-
 // Sélecteur de conteneur de catégories
 const categoriesContainer = document.querySelector(".categories");
 
@@ -14,11 +12,10 @@ const createButton = (text, callback) => {
 // Fonction pour filtrer les travaux par catégorie
 const filterWorksByCategory = (categoryId, works, displayWorks) => {
   if (!works) {
-    console.error("Les travaux (works) ne sont pas définis.");
+    console.error("Les travaux ne sont pas définis.");
     return;
   }
-  const filteredWorks = works.filter((work) => work.categoryId === categoryId);
-  displayWorks(filteredWorks);
+  displayWorks(works.filter((work) => work.categoryId === categoryId));
 };
 
 // Fonction pour créer les boutons de catégories
@@ -43,8 +40,12 @@ export function createCategoryButtons(categories, works, displayWorks) {
 
 // Fonction pour mettre à jour le bouton actif
 export function setActiveButton(activeButton) {
-  categoriesContainer
-    .querySelectorAll("button")
-    .forEach((btn) => btn.classList.remove("active"));
+  const buttons = categoriesContainer.querySelectorAll("button");
+  if (!buttons || buttons.length === 0) {
+    console.error("Aucun bouton trouvé dans le conteneur de catégories.");
+    return;
+  }
+
+  buttons.forEach((btn) => btn.classList.remove("active"));
   activeButton.classList.add("active");
 }

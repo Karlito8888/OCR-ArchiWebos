@@ -35,7 +35,7 @@ export async function handleProjectFormSubmit(
     console.log("Projet ajouté avec succès:", data);
 
     // Récupérer la liste mise à jour des projets
-    const updatedWorks = await fetchWorks();
+    const { works: updatedWorks } = await fetchWorks();
 
     // Mettre à jour la galerie avec les projets récupérés
     displayWorksInModal(updatedWorks);

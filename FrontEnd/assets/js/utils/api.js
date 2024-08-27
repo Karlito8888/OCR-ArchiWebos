@@ -1,45 +1,28 @@
 // src/utils/api.js
 
-// Récupère les travaux
 export async function fetchWorks() {
   try {
-    const response = await fetch("http://localhost:5678/api/works/");
-    if (!response.ok)
+    const response = await fetch("http://localhost:5678/api/works");
+    if (!response.ok) {
       throw new Error("Erreur lors de la récupération des travaux");
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
+    }
+    const works = await response.json();
 
-// Récupère les catégories
-export async function fetchCategories() {
-  try {
-    const response = await fetch("http://localhost:5678/api/categories/");
-    if (!response.ok)
-      throw new Error("Erreur lors de la récupération des catégories");
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
+    // Extraire les catégories des travaux
+        // 'stringify' convertit en chaînes de caractères
+        // 'Set' supprime les doublons
+        // 'parse' convertit les chaînes en objet JavaScript
+        // 'Array.from' convertit le Set en tableau
+    const categories = Array.from(
+      new Set(works.map((work) => JSON.stringify(work.category)))
+    ).map((category) => JSON.parse(category));
 
-// Centralise la récupération des travaux et des catégories
-export async function fetchInitialData() {
-  try {
-    const [works, categories] = await Promise.all([
-      fetchWorks(),
-      fetchCategories(),
-    ]);
+    // console.log("Catégories:", categories);
+
     return { works, categories };
   } catch (error) {
-    console.error(
-      "Erreur lors de la récupération des données initiales:",
-      error
-    );
-    return { works: [], categories: [] };
+    console.error("Erreur lors de la récupération des travaux:", error);
+    throw error;
   }
 }
 
