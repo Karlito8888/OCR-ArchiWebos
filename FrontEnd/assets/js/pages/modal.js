@@ -1,6 +1,6 @@
 import { createGalleryItem } from "../components/gallery.js";
-import { handleImageChange } from "../utils/imageHandler.js";
 import { handleProjectFormSubmit } from "../utils/formHandler.js";
+import { handleImagePreview } from "../utils/imagePreview.js";
 
 export function initializeModal(works = [], categories = []) {
   const modal = document.getElementById("modal");
@@ -70,7 +70,7 @@ export function initializeModal(works = [], categories = []) {
   );
 
   projectImageInput.addEventListener("change", (event) =>
-    handleImageChange(
+    handleImagePreview(
       event,
       addPhotoBox,
       initialAddPhotoBoxContent,

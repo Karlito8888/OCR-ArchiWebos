@@ -1,6 +1,26 @@
 // src/utils/formHandler.js
 
 import { fetchWorks, addWork } from "./api.js";
+import { formState, updateButtonState } from "./formState.js";
+
+function initializeTitleLogging() {
+  const projectTitleInput = document.getElementById("projectTitle");
+
+  projectTitleInput.addEventListener("input", (event) => {
+    const title = event.target.value;
+    formState.isTitleEntered = title.trim() !== ""; // Mettre à jour l'état
+    updateButtonState(); // Vérifiez l'état du bouton
+  });
+}
+
+function initializeCategoryTracking() {
+  const projectCategorySelect = document.getElementById("projectCategory");
+
+  projectCategorySelect.addEventListener("change", (event) => {
+    formState.isCategorySelected = event.target.value !== ""; // Mettre à jour l'état
+    updateButtonState(); // Vérifiez l'état du bouton
+  });
+}
 
 export async function handleProjectFormSubmit(
   event,
@@ -14,6 +34,19 @@ export async function handleProjectFormSubmit(
   const imageFile = projectImageInput.files[0];
   const title = document.getElementById("projectTitle").value;
   const category = document.getElementById("projectCategory").value;
+
+  if (!formState.isImageUploaded) {
+    alert("Veuillez ajouter une image.");
+    return;
+  }
+  if (!formState.isTitleEntered) {
+    alert("Veuillez entrer un titre.");
+    return;
+  }
+  if (!formState.isCategorySelected) {
+    alert("Veuillez sélectionner une catégorie.");
+    return;
+  }
 
   if (!["image/jpeg", "image/png"].includes(imageFile.type)) {
     alert("Veuillez sélectionner une image au format JPG ou PNG.");
@@ -30,14 +63,10 @@ export async function handleProjectFormSubmit(
   formData.append("category", category);
 
   try {
-    // Appeler la fonction addWork pour ajouter le projet
     const data = await addWork(formData);
     console.log("Projet ajouté avec succès:", data);
 
-    // Récupérer la liste mise à jour des projets
     const { works: updatedWorks } = await fetchWorks();
-
-    // Mettre à jour la galerie avec les projets récupérés
     displayWorksInModal(updatedWorks);
 
     projectForm.reset();
@@ -47,3 +76,8 @@ export async function handleProjectFormSubmit(
     alert("Une erreur est survenue lors de l'ajout du projet.");
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  initializeTitleLogging();
+  initializeCategoryTracking();
+});
