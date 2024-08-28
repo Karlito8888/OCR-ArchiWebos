@@ -64,13 +64,15 @@ export async function handleProjectFormSubmit(
 
   try {
     const data = await addWork(formData);
-    console.log("Projet ajouté avec succès:", data);
 
     const { works: updatedWorks } = await fetchWorks();
     displayWorksInModal(updatedWorks);
 
     projectForm.reset();
     showGalleryView();
+
+    console.log("Projet ajouté avec succès:", data);
+    alert(`Projet "${data.title}" ajouté avec succès !`);
   } catch (error) {
     console.error("Erreur:", error);
     alert("Une erreur est survenue lors de l'ajout du projet.");

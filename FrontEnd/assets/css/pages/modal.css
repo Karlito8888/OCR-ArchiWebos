@@ -11,6 +11,38 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+.notification-banner {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  font-size: 16px;
+  z-index: 1000;
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.notification-banner.success {
+  background-color: #4caf50;
+  color: white;
+}
+
+.notification-banner.error {
+  background-color: #f44336;
+  color: white;
+}
+
+.notification-banner.hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.notification-banner.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .modal-content {
   background-color: var(--white1);
   margin: 15% auto;
